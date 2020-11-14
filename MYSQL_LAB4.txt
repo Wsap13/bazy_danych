@@ -1,0 +1,23 @@
+Lab_04
+A. Usuwanie dwóch najsatrszych wikingów
+delete from postac where id_postaci=7;
+delete from postac where id_postaci=9;
+B. Usunięcię kluczy obcych
+alter table walizka drop foreign key walizka_ibfk_1;
+alter table postac modify id_postaci int;
+alter table postac drop primary key;
+zad 2
+A. Dodawanie peselu
+ALTER TABLE postac ADD COLUMN  pesel varchar(11) FIRST;
+update postac set pesel='64758735416'+id_postaci;
+alter table postac add primary key(pesel);
+B.Dodawanie rodzaju
+alter table postac modify rodzaj enum ('wiking','ptak','kobiet','syrena');
+C.Wsatwianie syreny
+insert into postac (pesel,id_postaci,nazwa,rodzaj) values ('95051003921','9','Gertruda_Nieszczera','syrena');
+update postac set data_ur='1995-05-20' where rodzaj='syrena';
+update postac set wiek=25  where rodzaj='syrena';
+Zad 3
+A. update postac set naz_statku='Nagelfar' where nazwa='Ragnar';
+B. update statek set max_ladownosc=24000*0.7  where data_wodowania between '1901-01-01' and '2001-01-01';
+C.
