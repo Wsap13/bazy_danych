@@ -1,0 +1,26 @@
+Zad.1 
+A. Kopiowanie tabel.
+create table kreatura select * from wikingowie.kreatura;
+create table zasob  select * from wikingowie.zasob;
+create table ekwipunek  select * from wikingowie.ekwipunek;
+B. Wypisywanie rekordów z tabeli zasób.
+select * from zasob;
+C. Wypisywanie rekordów z tabeli zasób, gdzie typ to jedzenie
+select * from zasob  where rodzaj='jedzenie';
+D. Wypisywanie id zasobu dla kreatur.
+select idZasobu, ilosc from ekwipunek where idKreatury in (1,2,5);
+Zad.2
+A. Wyświetlanie kreatur które nie są wiedzmą i dźwigają co najmniej 50 kg
+ select * from kreatura  where rodzaj<>'wiedzma' and udzwig>50 ;
+B. Wyświetlanie zasobów ważących między 2 a 5 kg.
+select * from zasob  where waga between 2 and 5;
+C. Wyświetlanie kreatur które zawierają w swojej nazwie or i dzwigają miedzy 30 a 70 kg.
+ select nazwa from kreatura where nazwa like '%or%' and udzwig between 30 and 70;
+Zad.3
+A. Wyświetlanie zasobów pozyskanych w lipcu lub sierpniu.
+ select dataPozyskania from zasob where month(datapozyskania)=6 or month(dataPozyskania)=7;
+B. Wyświetlanie zasobów od najcięższego do najlżejszego.
+select * from wikingowie.zasob order by waga desc
+C. Wyświetlanie 5 najstarszych kreatur.
+select * from wikingowie.kreatura order by dataUr;
+
