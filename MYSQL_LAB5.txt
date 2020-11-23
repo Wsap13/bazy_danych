@@ -9,6 +9,7 @@ C. Wypisywanie rekordów z tabeli zasób, gdzie typ to jedzenie
 select * from zasob  where rodzaj='jedzenie';
 D. Wypisywanie id zasobu dla kreatur.
 select idZasobu, ilosc from ekwipunek where idKreatury in (1,2,5);
+
 Zad.2
 A. Wyświetlanie kreatur które nie są wiedzmą i dźwigają co najmniej 50 kg
  select * from kreatura  where rodzaj<>'wiedzma' and udzwig>50 ;
@@ -16,6 +17,7 @@ B. Wyświetlanie zasobów ważących między 2 a 5 kg.
 select * from zasob  where waga between 2 and 5;
 C. Wyświetlanie kreatur które zawierają w swojej nazwie or i dzwigają miedzy 30 a 70 kg.
  select nazwa from kreatura where nazwa like '%or%' and udzwig between 30 and 70;
+
 Zad.3
 A. Wyświetlanie zasobów pozyskanych w lipcu lub sierpniu.
  select dataPozyskania from zasob where month(datapozyskania)=6 or month(dataPozyskania)=7;
@@ -23,4 +25,24 @@ B. Wyświetlanie zasobów od najcięższego do najlżejszego.
 select * from wikingowie.zasob order by waga desc
 C. Wyświetlanie 5 najstarszych kreatur.
 select * from wikingowie.kreatura order by dataUr;
+
+Zad.4
+A. Wyświetlanie unikalne rodzaju zasobów.
+select distinct rodzaj from kreatura;
+B. Wyświetlanie jako jedną kolumnę nazwę i rodzaj kreatury gdzie rodzaj zaczyna się od "wi".
+select concat(nazwa," - ",rodzaj)from kreatura where rodzaj like "wi%";
+C. Wyświetlanie zasobów z całkowitą wagą danych zasobów pozyskanych między 2000 a 2007.
+select concat (nazwa,' - ', ilosc*waga)as 'calkowita masa zasobu' from za
+sob where year(dataPozyskania) between 2000 and 2007 ;
+
+Zad.5
+A. Wyświetlanie rodzaju jedzenia uzględniając właściwą masę jedzenia oraz odpadków.
+select concat(nazwa ," masa jedzenia: ",ilosc*waga*0.7," masa odpadu: ", ilosc*waga*0.3) from zasob where rodzaj='jedzenie';
+select nazwa, 0.7*waga*ilosc as 'wlasciwa masa jedzenia', 0.3*waga*ilosc as 'odpad' from zasob where rodzaj='jedzenie'
+B. Wyświetlanie zasobów które nie mają rodzaju.
+select * from zasob where rodzaj is NULL;
+C. Wyświetlanie wszystkich unikalnych rodzajów zasobów, których nazwa zaczyną się od "Ba" lub kończy na "os".
+Sortując alfabetycznie.
+ select distinct(rodzaj),nazwa from zasob where nazwa like 'ba%' or nazwa
+like '%os' order by rodzaj  asc;
 
