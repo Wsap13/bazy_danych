@@ -1,0 +1,21 @@
+Lab06 
+Zad.1
+SELECT AVG(udzwig) as sredni_udzwig FROM kreatura group by rodzaj;
+SELECT rodzaj, COUNT(*), AVG(waga) FROM kreatura group by rodzaj;
+SELECT rodzaj, AVG(2020-year(dataUR)) FROM kreatura GROUP BY rodzaj;
+Zad.2
+SELECT rodzaj,SUM(waga) FROM kreatura GROUP BY rodzaj;
+SELECT nazwa AVG(waga) FROM zasob WHERE ilosc>4 GROUP BY nazwa HAVING SUM(waga)>10;
+SELECT distinct(nazwa) FROM zasob WHERE ilosc>=1;
+Zad.3
+SELECT nazwa, idZasobu, ilosc FROM kreatura k,ekwipunek e WHERE k.idKreatury=e.idKreatury;
+SELECT nazwa, sum(ilosc) FROM kreatura k, ekwipunek e WHERE k.idKreatury=e.idKreatury GROUP BY nazwa;
+SELECT k. idKreatury, k.nazwa FROM kreatura LEFT JOIN ekwpunek e on k.idKreatury=e.idKreatury WHERE e.idKreatury IS NULL
+Zad.4
+SELECT  * FROM zasob z,kreatura NATURAL JOIN ekwipunek WHERE kreatura.rodzaj='wiking' AND year (kreatura.dataUr) BETWEEN 1670 AND 1679 AND z.idZasobu=ekwipunek.idZasobu;
+SELECT k.nazwa, z.rodzaj, k.dataUr FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON z.idZasobu = e.idZasobu WHERE z.rodzaj='jedzenie' ORDER BY k.dataUr DESC LIMIT 5;
+SELECT k.nazwa, (SELECT k2.nazwa FROM kreatura k2 WHERE k2.idKreatury = k.idKreatury+5) AS nazwa2 FROM kreatura k;
+Zad.5
+SELECT k.rodzaj, AVG(e.ilosc *z.waga) FROM kreatura AS k, ekwipunek AS e, zasob AS z where k.idKreatury=e.idKreatury AND e.idZasobu=z.idZasobu AND k.rodzaj NOT IN('malpa','waz')GROUP BY rodzaj HAVING SUM(e.ilosc) < 30;
+SELECT DISTINCT k.rodzaj,
+(SELECT CONCAT(k2.nazwa, " - " , k2.dataUr) FROM kreatura k2 WHERE k.rodzaj=k2.rodzaj ORDER BY k2.dataUr LIMIT 1) AS najstarsze, (SELECT CONCAT(k2.nazwa, " - " , k2.dataUr) FROM kreatura k2 WHERE 
