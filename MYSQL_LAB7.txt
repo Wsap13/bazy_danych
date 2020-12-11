@@ -1,0 +1,19 @@
+Lab07
+Zad.1
+CREATE TABLE uczestnicy SELECT * FROM wikingowie.uczestnicy;
+CREATE TABLE etapy_wyprawy SELECT * FROM wikingowie.etapy_wyprawy;
+CREATE TABLE sektor SELECT * FROM wikingowie.sektor;
+CREATE TABLE wyprawa SELECT * FROM wikingowie.wyprawa;
+SELECT k.nazwa FROM kreatura k WHERE k.idKreatury NOT IN (SELECT id_uczestnika FROM uczestnicy);
+select w.nazwa, sum(e.ilosc) from wyprawa w, ekwipunek e, uczestnicy u where
+u.id_wyprawy=w.id_wyprawy and u.id_uczestnika=e.idKreatury group by w.nazwa;
+Zad.2
+SELECT w.nazwa, count(u.id_uczestnika),group_concat(k.nazwa) from wyprawa w, kreatura k, uczestnicy u where u.id_wyprawy=w.id_wyprawy and u.id_uczestnika=k.idKreatury group by w.nazwa;
+SELECT e.idEtapu, s.nazwa as "nazwa sektora", k.nazwa as "nazwa kierownika" from etapy_wyprawy e, sektor s, wyprawa w,kreatura k where w.kierownik=k.idKreatury and w.id_wyprawy=e.idWyprawy and e.sektor=s.id_sektora order by w.data_rozpoczecia, e.kolejnosc;
+Zad.3
+SELECT s.nazwa,count(e.sektor) from sektor s left join etapy_wyprawy e on s.id_sektora=e.sektor GROUP BY s.nazwa;
+SELECT distinct k.nazwa, if(u.id_uczestnika IS NULL, 'nie brał udziału w wyprawie', 'brał udział w wyprawie') from kreatura k left join uczestnicy u on u.id_uczestnika=idKreatury;
+Zad.4
+select w.nazwa, sum(length(e.dziennik)) from wyprawa w, etapy_wyprawy e where w.id_wyprawy=e.idWyprawy group by w.nazwa having sum(length(e.dziennik)) < 400;
+select w.nazwa as "wyprawa", sum(z.waga*e.ilosc)/count(u.id_uczestnika) from kreatura k, zasob z, wyprawa w, uczestnicy u, ekwipunek e where z.idZasobu=e.idZasobu and k.idKreatury=e.idKreatury and u.id_uczestnika=k.idKreatury and u.id_wyprawy=w.id_wyprawy group by w.nazwa;
+
