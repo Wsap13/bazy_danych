@@ -105,7 +105,7 @@ update reklama set cena = cena - ((procent/100) * cena) where id_reklamy = id;
 end
 $$
 DELIMITER ;
-select promocja(20,7);
+call promocja(20,7);
 
 
 Dodawanie funkcji.
